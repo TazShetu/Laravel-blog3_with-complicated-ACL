@@ -9,16 +9,9 @@
                         <p>No Post Found</p>
                     </div>
                 @else
-                    @if(isset($catName))
-                        <div class="alert alert-info text-center">
-                            <p>Category: <strong>{{$catName}}</strong></p>
-                        </div>
-                    @endif
-                    @if(isset($userName))
-                        <div class="alert alert-info text-center">
-                            <p>All Posts from user: <strong>{{$userName}}</strong></p>
-                        </div>
-                    @endif
+
+                    @include('includes.Balert')
+
                     @foreach($posts as $p)
                          <article class="post-item">
                              <div class="post-item-image">
@@ -56,8 +49,8 @@
                          {{--<li class="previous disabled"><a href="#"><span aria-hidden="true">&larr;</span> Newer</a></li>--}}
                          {{--<li class="next"><a href="#">Older <span aria-hidden="true">&rarr;</span></a></li>--}}
                      {{--</ul>--}}
-                    {{$posts->links()}}
-                 </nav>
+                    {{$posts->appends(request()->only(['sp']))->links()}}
+                </nav>
              </div>
 
              @include('includes.sidebar')

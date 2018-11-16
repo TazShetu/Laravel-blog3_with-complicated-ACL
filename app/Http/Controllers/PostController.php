@@ -22,7 +22,21 @@ class PostController extends Controller
 //        $posts = Post::all();
 //        $posts = Post::with('user')->orderBy('updated_at', 'desc')->get();
 //        $categories = Category::with('posts')->orderBy('title', 'asc')->get();
-        $posts = Post::with('user')->latest()->simplePaginate(3);
+        $posts = Post::with('user')->latest();
+        if ($a = request('sp')){
+//            $posts->where('title', 'LIKE', "%{$a}%");
+            $posts->where(function ($q) use ($a){
+                $q->whereHas('user', function ($qr) use ($a){
+                    $qr->where('name', 'LIKE', "%{$a}%");
+                });
+                $q->orWhereHas('category', function ($qr) use ($a){
+                    $qr->where('title', 'LIKE', "%{$a}%");
+                });
+                $q->orWhere('title', 'LIKE', "%{$a}%");
+                $q->orWhere('excerpt', 'LIKE', "%{$a}%");
+            });
+        }
+        $posts = $posts->simplePaginate(3);
         return view('blog.index', compact( 'posts'));
     }
 

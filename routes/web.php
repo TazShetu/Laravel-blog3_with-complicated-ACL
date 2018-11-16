@@ -22,11 +22,11 @@ Route::get('/', [
 ]);
 
 
-Route::get('/b', [
+Route::get('/blog', [
     'uses' => 'PostController@index',
     'as' => 'index'
 ]);
-Route::get('/bp/{slug}', [
+Route::get('/blog-post/{slug}', [
     'uses' => 'PostController@show',
     'as' => 'post.show'
 ]);
