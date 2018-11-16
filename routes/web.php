@@ -22,11 +22,11 @@ Route::get('/', [
 ]);
 
 
-Route::get('/b', [
+Route::get('/blog', [
     'uses' => 'PostController@index',
     'as' => 'index'
 ]);
-Route::get('/bp/{slug}', [
+Route::get('/blog-post/{slug}', [
     'uses' => 'PostController@show',
     'as' => 'post.show'
 ]);
@@ -39,6 +39,11 @@ Route::get('/category/{slug}', [
 Route::get('/author/{slug}', [
     'uses' => 'PostController@sup',
     'as' => 'author'
+]);
+
+Route::get('/tag/{slug}', [
+    'uses' => 'PostController@tag',
+    'as' => 'tag'
 ]);
 
 Auth::routes();
