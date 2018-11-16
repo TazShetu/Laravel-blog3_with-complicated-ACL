@@ -9,16 +9,9 @@
                         <p>No Post Found</p>
                     </div>
                 @else
-                    @if(isset($catName))
-                        <div class="alert alert-info text-center">
-                            <p>Category: <strong>{{$catName}}</strong></p>
-                        </div>
-                    @endif
-                    @if(isset($userName))
-                        <div class="alert alert-info text-center">
-                            <p>All Posts from user: <strong>{{$userName}}</strong></p>
-                        </div>
-                    @endif
+
+                    @include('includes.Balert')
+
                     @foreach($posts as $p)
                          <article class="post-item">
                              <div class="post-item-image">
@@ -38,7 +31,12 @@
                                          <ul class="post-meta-group">
                                              <li><i class="fa fa-user"></i><a href="{{route('author', ['name' => $p->user->slug])}}">{{$p->user->name}}</a></li>
                                              <li><i class="fa fa-clock-o"></i><time>{{$p->updated_at->diffforHumans()}}</time></li>
-                                             <li><i class="fa fa-tags"></i><a href="{{route('category', ['slug' => $p->category->slug])}}"> {{$p->category->title}}</a></li>
+                                             <li><i class="fa fa-folder"></i><a href="{{route('category', ['slug' => $p->category->slug])}}"> {{$p->category->title}}</a></li>
+                                             <li><i class="fa fa-tag"></i>
+                                                 @foreach($p->tags as $t)
+                                                     <a href="{{route('tag', ['slug' => $t->slug])}}">{{$t->name}}&nbsp;</a>
+                                                 @endforeach
+                                             </li>
                                              <li><i class="fa fa-comments"></i><a href="#">4 Comments</a></li>
                                          </ul>
                                      </div>
@@ -56,8 +54,8 @@
                          {{--<li class="previous disabled"><a href="#"><span aria-hidden="true">&larr;</span> Newer</a></li>--}}
                          {{--<li class="next"><a href="#">Older <span aria-hidden="true">&rarr;</span></a></li>--}}
                      {{--</ul>--}}
-                    {{$posts->links()}}
-                 </nav>
+                    {{$posts->appends(request()->only(['sp']))->links()}}
+                </nav>
              </div>
 
              @include('includes.sidebar')

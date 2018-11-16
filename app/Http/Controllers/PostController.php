@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Post;
+use App\Tag;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -22,8 +23,22 @@ class PostController extends Controller
 //        $posts = Post::all();
 //        $posts = Post::with('user')->orderBy('updated_at', 'desc')->get();
 //        $categories = Category::with('posts')->orderBy('title', 'asc')->get();
-        $posts = Post::with('user')->latest()->simplePaginate(3);
-        return view('blog.index', compact( 'posts'));
+        $posts = Post::with('user', 'tags', 'category')->latest();
+        if ($a = request('sp')){
+//            $posts->where('title', 'LIKE', "%{$a}%");
+            $posts->where(function ($q) use ($a){
+                $q->whereHas('user', function ($qr) use ($a){
+                    $qr->where('name', 'LIKE', "%{$a}%");
+                });
+                $q->orWhereHas('category', function ($qr) use ($a){
+                    $qr->where('title', 'LIKE', "%{$a}%");
+                });
+                $q->orWhere('title', 'LIKE', "%{$a}%");
+                $q->orWhere('excerpt', 'LIKE', "%{$a}%");
+            });
+        }
+        $posts = $posts->simplePaginate(3);
+        return view('blog.index', compact( 'posts' ));
     }
 
     public function category($slug){
@@ -124,6 +139,16 @@ class PostController extends Controller
         $userName = $u->name;
         $posts = Post::with('user')->where('user_id', $u->id)->simplePaginate(2);
         return view('blog.index', compact( 'posts', 'userName'));
+    }
+
+
+    public function tag($slug){
+//        dd($slug);
+        $t = Tag::where('slug', $slug)->first();
+//        dd($t->name);
+        $tagName = $t->name;
+        $posts = $t->posts()->with('user')->simplePaginate(2);
+        return view('blog.index', compact( 'posts', 'tagName'));
     }
 
 
