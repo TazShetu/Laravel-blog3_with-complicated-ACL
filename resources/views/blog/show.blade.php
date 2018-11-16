@@ -17,7 +17,12 @@
                                 <ul class="post-meta-group">
                                     <li><i class="fa fa-user"></i><a href="{{route('author', ['name' => $p->user->slug])}}">{{$p->user->name}}</a></li>
                                     <li><i class="fa fa-clock-o"></i><time> {{$p->updated_at->diffforHumans()}}</time></li>
-                                    <li><i class="fa fa-tags"></i><a href="{{route('category', ['slug' => $p->category->slug])}}">{{$p->category->title}}</a></li>
+                                    <li><i class="fa fa-comments"></i><a href="{{route('category', ['slug' => $p->category->slug])}}">{{$p->category->title}}</a></li>
+                                    <li><i class="fa fa-tag"></i>
+                                        @foreach($p->tags as $t)
+                                            <a href="{{route('tag', ['slug' => $t->slug])}}">{{$t->name}}&nbsp;</a>
+                                        @endforeach
+                                    </li>
                                     <li><i class="fa fa-comments"></i><a href="#">4 Comments</a></li>
                                 </ul>
                             </div>
