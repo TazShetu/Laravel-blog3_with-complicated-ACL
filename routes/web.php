@@ -41,6 +41,11 @@ Route::get('/author/{slug}', [
     'as' => 'author'
 ]);
 
+Route::get('/tag/{slug}', [
+    'uses' => 'PostController@tag',
+    'as' => 'tag'
+]);
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
