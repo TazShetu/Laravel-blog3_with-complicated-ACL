@@ -46,6 +46,11 @@ Route::get('/tag/{slug}', [
     'as' => 'tag'
 ]);
 
+Route::get('/year/{year}', [
+    'uses' => 'PostController@year',
+    'as' => 'year'
+]);
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

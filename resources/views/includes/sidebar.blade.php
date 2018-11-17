@@ -21,14 +21,13 @@
                 <ul class="categories">
                     @foreach($categories as $c )
                         <li>
-                            <a href="{{route('category', ['slug' => $c->slug])}}"><i class="fa fa-angle-right"></i>{{$c->title}}</a>
+                            <a href="{{route('category', ['slug' => $c->slug])}}"><i class="fa fa-angle-right"></i> {{$c->title}}</a>
                             <span class="badge pull-right">{{$c->posts->count()}}</span>
                         </li>
                     @endforeach
                 </ul>
             </div>
         </div>
-
         <div class="widget">
             <div class="widget-heading">
                 <h4>Popular Posts</h4>
@@ -53,7 +52,6 @@
                 </ul>
             </div>
         </div>
-
         <div class="widget">
             <div class="widget-heading">
                 <h4>Tags</h4>
@@ -67,6 +65,23 @@
             </div>
         </div>
 
+        <div class="widget">
+            <div class="widget-heading">
+                <h4>Archives</h4>
+            </div>
+            <div class="widget-body">
+                <ul class="categories">
+                    <li>
+                        <a href="{{route('year', ['year' => 2018])}}" class="btn btn-default">2018</a>
+                        <span class="badge pull-right">{{\App\Post::whereYear('created_at', 2018)->get()->count()}}</span>
+                    </li>
+                    <li>
+                        <a href="{{route('year', ['year' => 2017])}}" class="btn btn-default">2017</a>
+                        <span class="badge pull-right">{{\App\Post::whereYear('created_at', 2017)->get()->count()}}</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
     </aside>
 </div>
-{{--zasdfc--}}

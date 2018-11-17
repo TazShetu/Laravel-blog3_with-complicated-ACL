@@ -7,6 +7,7 @@ use App\Post;
 use App\Tag;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PostController extends Controller
 {
@@ -151,6 +152,11 @@ class PostController extends Controller
         return view('blog.index', compact( 'posts', 'tagName'));
     }
 
+    public function year($year){
+        // dd($year);
+        $posts = Post::whereYear('created_at', $year)->simplePaginate(2);
+        return view('blog.index', compact( 'posts'));
+    }
 
 
     public function test(){
