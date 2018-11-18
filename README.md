@@ -36,6 +36,10 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 
 ## Uses
 
-as soon as the project is finished, uses will be updated.<br>
-ACL is working fine though 
+you need to have composer installed.<br>
+create .evn file and update according to your database and run the following command<br>
+$ composer install   
+$ npm install<br>
+for some reason if you do not find composer.lock file then run the following command<br>
+$ composer update
 
