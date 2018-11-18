@@ -24,6 +24,7 @@
                                      <h2><a href="{{route('post.show', ['slug' => $p->slug])}}">{{$p->title}}</a></h2>
                                      {{--<p>{{$p->excerpt}}</p>--}}
                                      <p>{!! Markdown::convertToHtml(e($p->excerpt)) !!}</p>
+                                     <a href="{{route('post.show', ['slug' => $p->slug])}}" class="btn btn-link">Continue Reading &raquo;</a>
                                  </div>
 
                                  <div class="post-meta padding-10 clearfix">
@@ -37,11 +38,9 @@
                                                      <a href="{{route('tag', ['slug' => $t->slug])}}">{{$t->name}}&nbsp;</a>
                                                  @endforeach
                                              </li>
-                                             <li><i class="fa fa-comments"></i><a href="#">4 Comments</a></li>
+                                             <?php $cc = $p->comments->count() ?>
+                                             <li><i class="fa fa-comments"></i><a href="{{route('post.show', ['slug' => $p->slug])}}#post-comment">{{$cc}} {{ str_plural('Comment', $cc) }}</a></li>
                                          </ul>
-                                     </div>
-                                     <div class="pull-right">
-                                         <a href="{{route('post.show', ['slug' => $p->slug])}}">Continue Reading &raquo;</a>
                                      </div>
                                  </div>
                              </div>

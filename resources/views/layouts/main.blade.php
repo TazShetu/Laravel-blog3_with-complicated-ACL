@@ -63,5 +63,6 @@
 </footer>
 
 <script src="{{asset('templets/js/bootstrap.min.js')}}"></script>
+@yield('script')
 </body>
 </html>

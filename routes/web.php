@@ -46,6 +46,11 @@ Route::get('/tag/{slug}', [
     'as' => 'tag'
 ]);
 
+Route::get('/year/{year}', [
+    'uses' => 'PostController@year',
+    'as' => 'year'
+]);
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
@@ -134,6 +139,11 @@ Route::get('/profile/edit/{slug}', [
 Route::post('/profile/update/{id}', [
     'uses' => 'HomeController@updateP',
     'as' => 'profile.update'
+]);
+
+Route::post('/comment/store', [
+    'uses' => 'CommentController@store',
+    'as' => 'comment.store'
 ]);
 
 
