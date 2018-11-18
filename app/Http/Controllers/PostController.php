@@ -7,6 +7,7 @@ use App\Post;
 use App\Tag;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PostController extends Controller
 {
@@ -84,17 +85,16 @@ class PostController extends Controller
 
 
         // view_count = view_count + 1 where id = ?
-
         //#1
 //        $new_view_count = $p->view_count + 1;
 //        $p->update(['view_count' => $new_view_count]);
-
         //#2
         $p->increment('view_count');
 //        $p->increment('view_count', 3);
         // by default 1 increase
+        $pc = $p->comments()->simplePaginate(2);
 
-        return view('blog.show', compact('p'));
+        return view('blog.show', compact('p', 'pc'));
     }
 
     /**
@@ -151,6 +151,11 @@ class PostController extends Controller
         return view('blog.index', compact( 'posts', 'tagName'));
     }
 
+    public function year($year){
+        // dd($year);
+        $posts = Post::whereYear('created_at', $year)->simplePaginate(2);
+        return view('blog.index', compact( 'posts'));
+    }
 
 
     public function test(){

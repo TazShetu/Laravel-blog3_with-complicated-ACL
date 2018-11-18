@@ -5,15 +5,19 @@
         <div class="row">
             <div class="col-md-8">
                 <article class="post-item post-detail">
+                    @if(session('success'))
+                        <div class="alert alert-success">
+                            {{session('success')}}
+                        </div>
+                    @endif
                     <div class="post-item-image">
                         <img src="{{asset($p->image)}}" alt="Image error" height="400">
                     </div>
-
                     <div class="post-item-body">
                         <div class="padding-10">
                             <h1>{{$p->title}}</h1>
 
-                            <div class="post-meta no-border">
+                            <div class="post-meta no-border" id="ttt">
                                 <ul class="post-meta-group">
                                     <li><i class="fa fa-user"></i><a href="{{route('author', ['name' => $p->user->slug])}}">{{$p->user->name}}</a></li>
                                     <li><i class="fa fa-clock-o"></i><time> {{$p->updated_at->diffforHumans()}}</time></li>
@@ -23,7 +27,8 @@
                                             <a href="{{route('tag', ['slug' => $t->slug])}}">{{$t->name}}&nbsp;</a>
                                         @endforeach
                                     </li>
-                                    <li><i class="fa fa-comments"></i><a href="#">4 Comments</a></li>
+                                    <?php $cc = $p->comments->count() ?>
+                                    <li><i class="fa fa-comments"></i><a href="#post-comment">{{$cc}} {{ str_plural('Comment', $cc) }}</a></li>
                                 </ul>
                             </div>
 {{--                            {!! Markdown::convertToHtml(e($p->body)) !!}--}}
@@ -62,6 +67,19 @@
             @include('includes.sidebar')
 
         </div>
-    </div>a
+    </div>
 
+@stop
+
+@section('script')
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
 @stop

@@ -46,6 +46,11 @@ Route::get('/tag/{slug}', [
     'as' => 'tag'
 ]);
 
+Route::get('/year/{year}', [
+    'uses' => 'PostController@year',
+    'as' => 'year'
+]);
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
@@ -136,4 +141,17 @@ Route::post('/profile/update/{id}', [
     'as' => 'profile.update'
 ]);
 
+Route::post('/comment/store', [
+    'uses' => 'CommentController@store',
+    'as' => 'comment.store'
+]);
 
+Route::get('/AllComments', [
+    'uses' => 'CommentController@index',
+    'as' => 'AllComments'
+])->middleware('dc');
+
+Route::get('/comment/delete/{id}', [
+    'uses' => 'CommentController@destroy',
+    'as' => 'comment.delete'
+])->middleware('dc');
