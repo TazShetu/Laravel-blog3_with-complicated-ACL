@@ -38,6 +38,9 @@
             @if(c_u_p(request(), "UserController@index"))
                 <li><a href="{{route('users.index')}}"><i class="fa fa-users"></i> <span>Users</span></a></li>
             @endif
+            @role(['admin'])
+                <li><a href="{{route('AllComments')}}"><i class="fa fa-comments"></i> <span>Comments</span></a></li>
+            @endrole
         </ul>
     </section>
     <!-- /.sidebar -->
