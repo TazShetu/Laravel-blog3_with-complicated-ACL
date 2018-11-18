@@ -85,17 +85,16 @@ class PostController extends Controller
 
 
         // view_count = view_count + 1 where id = ?
-
         //#1
 //        $new_view_count = $p->view_count + 1;
 //        $p->update(['view_count' => $new_view_count]);
-
         //#2
         $p->increment('view_count');
 //        $p->increment('view_count', 3);
         // by default 1 increase
+        $pc = $p->comments()->simplePaginate(1);
 
-        return view('blog.show', compact('p'));
+        return view('blog.show', compact('p', 'pc'));
     }
 
     /**

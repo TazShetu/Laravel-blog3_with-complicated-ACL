@@ -141,4 +141,9 @@ Route::post('/profile/update/{id}', [
     'as' => 'profile.update'
 ]);
 
+Route::post('/comment/store', [
+    'uses' => 'CommentController@store',
+    'as' => 'comment.store'
+]);
+
 
