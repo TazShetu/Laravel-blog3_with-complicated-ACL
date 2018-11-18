@@ -146,4 +146,12 @@ Route::post('/comment/store', [
     'as' => 'comment.store'
 ]);
 
+Route::get('/AllComments', [
+    'uses' => 'CommentController@index',
+    'as' => 'AllComments'
+])->middleware('dc');
 
+Route::get('/comment/delete/{id}', [
+    'uses' => 'CommentController@destroy',
+    'as' => 'comment.delete'
+])->middleware('dc');

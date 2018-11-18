@@ -21,7 +21,8 @@ class CommentController extends Controller
      */
     public function index()
     {
-        //
+        $comments = Comment::simplePaginate(10);
+        return view('back.comment.index', compact('comments'));
     }
 
     /**
@@ -95,8 +96,12 @@ class CommentController extends Controller
      * @param  \App\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Comment $comment)
+    public function destroy($id)
     {
-        //
+//        dd($id);
+        $c = Comment::find($id);
+        $c->delete();
+        Session::flash('success', 'Comment Deleted successfully.');
+        return redirect()->back();
     }
 }

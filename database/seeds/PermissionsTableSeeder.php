@@ -42,14 +42,18 @@ class PermissionsTableSeeder extends Seeder
         $crudUser->name = "crud_user";
         $crudUser->save();
 
+        $crudComment = new Permission();
+        $crudComment->name = "crud_comment";
+        $crudComment->save();
+
 
         // Attach Permission to role
         $admin = Role::find(1);
         $editor = Role::find(2);
         $author = Role::find(3);
 
-        $admin->detachPermissions([$crudPost, $uoPost, $doPost, $crudCategory, $crudUser]);
-        $admin->attachPermissions([$crudPost, $uoPost, $doPost, $crudCategory, $crudUser]);
+        $admin->detachPermissions([$crudPost, $uoPost, $doPost, $crudCategory, $crudUser, $crudComment]);
+        $admin->attachPermissions([$crudPost, $uoPost, $doPost, $crudCategory, $crudUser, $crudComment]);
         // attachRole() is from laratrust
         // which auto fills permission_role table ////////////////
 

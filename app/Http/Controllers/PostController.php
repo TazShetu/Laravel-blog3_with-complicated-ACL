@@ -92,7 +92,7 @@ class PostController extends Controller
         $p->increment('view_count');
 //        $p->increment('view_count', 3);
         // by default 1 increase
-        $pc = $p->comments()->simplePaginate(1);
+        $pc = $p->comments()->simplePaginate(2);
 
         return view('blog.show', compact('p', 'pc'));
     }
